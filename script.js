@@ -680,11 +680,11 @@ function init() {
         Config.colorTint = `0.1, 0.3, 0.7`;
         Config.flashColor = 0x94afff;
     }
-    else if(paramsObj.color == "pink"){
+    else if(paramsObj.color == "violet"){
         Config.colorTint = `0.7, 0.1, 0.7`;
         Config.flashColor = 0xffb0ff;
     }
-    else if(paramsObj.color == "violet"){
+    else if(paramsObj.color == "indigo"){
         Config.colorTint = `0.3, 0.3, 0.8`;
         Config.flashColor = 0xafb2ff;
     }
