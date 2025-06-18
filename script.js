@@ -4,8 +4,8 @@
 const Config = {
     pixelSize: 10,
     d20Radius: 55,
-    labelScale: 10,
-    lineWidth: 15,
+    labelScale: 14,
+    lineWidth: 10,
     rollDuration: 2000,
     stopDuration: 3000,
     initialScale: 1.2,
@@ -13,9 +13,9 @@ const Config = {
     groundLevel: 0,
     flashDuration: 500,
     flashColor: 0xff872b,
-    labelCanvasSize: 40,
-    labelFontSize: 40,
-    labelFont: 'bold 40px Bytesized',
+    labelCanvasSize: 10,
+    labelFontSize: 10,
+    labelFont: 'bold 10px monospace',
     labelTextColor: '#ffffff',
     backgroundColor: 0x1a1a1a,  // Changed to match CRT shader's grey
     faceNumbers: [9, 6, 16, 3, 19, 14, 11, 1, 17, 8, 18, 5, 15, 12, 2, 4, 13, 7, 10, 20],
@@ -417,6 +417,7 @@ const RendererModule = {
         return { scene: scene, camera: RendererModule.camera, renderer: RendererModule.renderer };
     },
     render: function () {
+        
         RendererModule.renderer.setRenderTarget(null);
         RendererModule.renderer.clear();
 
@@ -649,6 +650,11 @@ const EventHandler = {
 
 // Initialization
 function init() {
+    if (window.innerWidth <= 1100 || window.innerHeight <= 1100){
+            Config.lineWidth = 8;
+            Config.pixelSize = 5;
+        }
+
     const { scene, camera, renderer } = RendererModule.init();
     D20.init(scene);
     RendererModule.addObjects(D20.d20, D20.innerD20, D20.labelGroup);
