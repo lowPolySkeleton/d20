@@ -673,7 +673,7 @@ function init() {
         Config.colorTint = `0.8, 0.3, 0.1`;
         Config.flashColor = 0xff872b;
     }else if(paramsObj.color == "green"){
-        Config.colorTint = `0.2, 0.7, 0.1`;
+        Config.colorTint = `0.1, 0.9, 0.3`;
         Config.flashColor = 0x00ff99;
     }
     else if(paramsObj.color == "blue"){
