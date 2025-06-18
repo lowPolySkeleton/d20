@@ -290,7 +290,7 @@ const D20 = {
             canvas.width = Config.labelCanvasSize;
             canvas.height = Config.labelCanvasSize;
 
-            context.fillStyle = '#1a1a1a';
+            context.fillStyle = 'rgba(0, 0, 0, 0.0)';
             context.fillRect(0, 0, canvas.width, canvas.height);
 
             context.font = Config.labelFont;
