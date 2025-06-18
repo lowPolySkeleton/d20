@@ -2,6 +2,7 @@
 
 // Configuration
 const Config = {
+    colorTint: `0.8, 0.3, 0.1`, // RGB values 1 is max
     pixelSize: 10,
     d20Radius: 55,
     labelScale: 14,
@@ -106,7 +107,7 @@ const CRTShader = {
 
         // Improved brightness calculation that preserves color
         float getBrightness(vec3 color) {
-            return dot(color, vec3(0.8, 0.3, 0.0)); // Weight green higher
+            return dot(color, vec3(${Config.colorTint})); 
         }
 
         float getVignette(vec2 uv) {
@@ -385,7 +386,7 @@ const RendererModule = {
                   float dx = (pixelSize / pixelHeightRatio) / resolution.x;
                   float dy = pixelSize / resolution.y;
                   vec2 coord = vec2(dx * floor(uv.x / dx), dy * floor(uv.y / dy));
-                  gl_FragColor = texture2D(tDiffuse, coord) * vec4(0.8, 0.3, 0., 1.0);
+                  gl_FragColor = texture2D(tDiffuse, coord) * vec4(${Config.colorTint}, 1.0);
               }
             `
         };
@@ -648,12 +649,55 @@ const EventHandler = {
     }
 };
 
+//set color based on url param
+function parseQueryString(queryString){
+    var params = {}, queries, temp;
+    queries = queryString.split("&");
+    
+    for (let i = 0; i < queries.length; i++) {
+        temp = queries[i].split('=');
+        params[temp[0]] = temp[1];
+    }
+    return params
+}
+
 // Initialization
 function init() {
     if (window.innerWidth <= 1100 || window.innerHeight <= 1100){
-            Config.lineWidth = 8;
-            Config.pixelSize = 5;
-        }
+        Config.lineWidth = 8;
+        Config.pixelSize = 5;
+    }
+
+    let paramsObj = parseQueryString(window.location.search.substring(1))
+    if(paramsObj.color == "orange"){
+        Config.colorTint = `0.8, 0.3, 0.1`;
+        Config.flashColor = 0xff872b;
+    }else if(paramsObj.color == "green"){
+        Config.colorTint = `0.2, 0.7, 0.1`;
+        Config.flashColor = 0x00ff99;
+    }
+    else if(paramsObj.color == "blue"){
+        Config.colorTint = `0.1, 0.3, 0.7`;
+        Config.flashColor = 0x94afff;
+    }
+    else if(paramsObj.color == "pink"){
+        Config.colorTint = `0.7, 0.1, 0.7`;
+        Config.flashColor = 0xffb0ff;
+    }
+    else if(paramsObj.color == "violet"){
+        Config.colorTint = `0.3, 0.3, 0.8`;
+        Config.flashColor = 0xafb2ff;
+    }
+    else if(paramsObj.color == "red"){
+        Config.colorTint = `0.8, 0.1, 0.2`;
+        Config.flashColor = 0xffb4c8;
+    }
+    else if(paramsObj.color == "yellow"){
+        Config.colorTint = `0.8, 0.6, 0.2`;
+        Config.flashColor = 0xffff00;
+    }
+
+
 
     const { scene, camera, renderer } = RendererModule.init();
     D20.init(scene);
